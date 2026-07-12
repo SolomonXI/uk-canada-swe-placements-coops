@@ -18,6 +18,7 @@ STARTING_URLS = [
     "https://konecranes.careers/job/placement-software-engineer-in-leicester-england-united-kingdom-jid-2162",
     "https://jobs.accel.com/companies/pismo/jobs/61729613-software-engineer-12-months-placement-student",
     "https://careers.crane.vc/companies/pqshield/jobs/60817731-software-engineering-internship-placement-year-2026",
+    "https://careers.baesystems.com/locations/uk/internships/industrial-placements",
 ]
 
 
@@ -50,6 +51,8 @@ def _parse_uk_listing(soup: BeautifulSoup, page_url: str) -> dict | None:
         return _parse_konecranes(soup, page_url)
     if "jobs.accel.com" in host or "careers.crane.vc" in host:
         return _parse_getro_style_job(soup, page_url)
+    if "careers.baesystems.com" in host:
+        return _parse_bae_systems(soup, page_url)
     return _parse_generic_single_job(soup, page_url)
 
 
@@ -67,6 +70,8 @@ def _parse_konecranes(soup: BeautifulSoup, page_url: str) -> dict | None:
     location = _extract_location_from_title(title) or _extract_location_from_body(body_text) or "Leicester, England, United Kingdom"
     city, region = _split_location(location)
     duration_months = _extract_duration_months(combined)
+    duration_text = _extract_duration_text(combined)
+    posted_date, posted_age_text = _extract_posted_metadata(soup, combined)
     open_ = not _looks_closed(combined)
 
     return {
@@ -84,11 +89,13 @@ def _parse_konecranes(soup: BeautifulSoup, page_url: str) -> dict | None:
         "locations": [location] if location else [],
         "application_url": _find_apply_url(soup) or page_url,
         "source": "Konecranes",
-        "posted_date": None,
+        "posted_date": posted_date,
+        "posted_age_text": posted_age_text,
         "last_seen_date": _utc_today(),
         "open": open_,
         "sponsorship": "Unknown",
-        "notes": _build_notes(combined, duration_months),
+        "duration_text": duration_text,
+        "notes": _build_notes(combined, duration_months, duration_text),
     }
 
 
@@ -103,6 +110,8 @@ def _parse_getro_style_job(soup: BeautifulSoup, page_url: str) -> dict | None:
     location = _location_from_getro_page(soup, text)
     city, region = _split_location(location)
     duration_months = _extract_duration_months(text)
+    duration_text = _extract_duration_text(text)
+    posted_date, posted_age_text = _extract_posted_metadata(soup, text)
     open_ = not _looks_closed(text)
 
     return {
@@ -120,11 +129,13 @@ def _parse_getro_style_job(soup: BeautifulSoup, page_url: str) -> dict | None:
         "locations": [location] if location else [],
         "application_url": _find_apply_url(soup) or page_url,
         "source": _get_source_label(page_url),
-        "posted_date": _extract_posted_date(text),
+        "posted_date": posted_date,
+        "posted_age_text": posted_age_text,
         "last_seen_date": _utc_today(),
         "open": open_,
         "sponsorship": "Unknown",
-        "notes": _build_notes(text, duration_months),
+        "duration_text": duration_text,
+        "notes": _build_notes(text, duration_months, duration_text),
     }
 
 
@@ -139,6 +150,8 @@ def _parse_generic_single_job(soup: BeautifulSoup, page_url: str) -> dict | None
     location = _extract_location_from_body(text)
     city, region = _split_location(location)
     duration_months = _extract_duration_months(text)
+    duration_text = _extract_duration_text(text)
+    posted_date, posted_age_text = _extract_posted_metadata(soup, text)
 
     return {
         "id": generate_listing_id(company, title or "Placement", page_url),
@@ -155,11 +168,54 @@ def _parse_generic_single_job(soup: BeautifulSoup, page_url: str) -> dict | None
         "locations": [location] if location else [],
         "application_url": _find_apply_url(soup) or page_url,
         "source": _get_source_label(page_url),
-        "posted_date": _extract_posted_date(text),
+        "posted_date": posted_date,
+        "posted_age_text": posted_age_text,
         "last_seen_date": _utc_today(),
         "open": not _looks_closed(text),
         "sponsorship": "Unknown",
-        "notes": _build_notes(text, duration_months),
+        "duration_text": duration_text,
+        "notes": _build_notes(text, duration_months, duration_text),
+    }
+
+
+def _parse_bae_systems(soup: BeautifulSoup, page_url: str) -> dict | None:
+    text = _normalized_text(soup)
+    lowered = text.lower()
+    if "software engineer" not in lowered or "placement" not in lowered:
+        return None
+    if "12 month" not in lowered:
+        return None
+
+    company = "BAE Systems"
+    title = "Software Engineer"
+    duration_months = 12
+    duration_text = "12 month placement"
+    location = _extract_bae_location(text)
+    city, region = _split_location(location)
+    posted_date, posted_age_text = _extract_posted_metadata(soup, text)
+
+    return {
+        "id": generate_listing_id(company, title, page_url),
+        "company": company,
+        "role": title,
+        "short_role": _short_role(title),
+        "type": "industrial_placement",
+        "category": "SWE",
+        "ai_focus": False,
+        "duration_months": duration_months,
+        "duration_text": duration_text,
+        "country": "UK",
+        "city": city,
+        "region": region,
+        "locations": [location] if location else [],
+        "application_url": _find_apply_url(soup) or page_url,
+        "source": "BAESystems",
+        "posted_date": posted_date,
+        "posted_age_text": posted_age_text,
+        "last_seen_date": _utc_today(),
+        "open": not _looks_closed(text),
+        "sponsorship": "Unknown",
+        "notes": _build_notes(text, duration_months, duration_text),
     }
 
 
@@ -318,16 +374,86 @@ def _extract_duration_months(text: str) -> int | None:
     return None
 
 
-def _extract_posted_date(text: str) -> str | None:
-    m = re.search(r"posted on ([a-z]{3,9} \d{1,2},? \d{4})", text, re.IGNORECASE)
-    if not m:
-        return None
-    cleaned = m.group(1).replace(",", "")
-    for fmt in ("%b %d %Y", "%B %d %Y"):
-        try:
-            return datetime.strptime(cleaned, fmt).date().isoformat()
-        except ValueError:
+def _extract_duration_text(text: str) -> str | None:
+    patterns = (
+        r"\d{1,2}\s*[-–]\s*\d{1,2}\s*(?:month|months)",
+        r"\d{1,2}\+\s*(?:month|months)",
+        r"\d{1,2}\s*(?:month|months)",
+    )
+    for pattern in patterns:
+        for match in re.finditer(pattern, text, re.IGNORECASE):
+            prefix = text[max(0, match.start() - 12):match.start()].lower()
+            if "posted" in prefix:
+                continue
+            return match.group(0)
+    if "year long internship" in text.lower():
+        match = re.search(r"year long internship[^.\n]*", text, re.IGNORECASE)
+        if match:
+            value = match.group(0).split("Applications", 1)[0]
+            return value.strip()
+    return None
+
+
+def _extract_posted_metadata(soup: BeautifulSoup | None, text: str) -> tuple[str | None, str | None]:
+    posted_date = _extract_posted_date(soup, text)
+    if posted_date:
+        return posted_date, None
+    relative = _extract_relative_age_text(text)
+    return None, relative
+
+
+def _extract_posted_date(soup: BeautifulSoup | None, text: str) -> str | None:
+    if soup:
+        for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
+            payload = script.string or script.get_text(" ", strip=True)
+            if not payload:
+                continue
+            try:
+                data = json.loads(payload)
+            except json.JSONDecodeError:
+                continue
+            for item in _iter_job_postings(data):
+                date_value = item.get("datePosted")
+                if isinstance(date_value, str) and date_value:
+                    return date_value[:10]
+    for pattern in (
+        r"datePosted\W*[:=]\W*\"?(\d{4}-\d{2}-\d{2})",
+        r"posted on ([a-z]{3,9} \d{1,2},? \d{4})",
+    ):
+        m = re.search(pattern, text, re.IGNORECASE)
+        if not m:
             continue
+        value = m.group(1).replace(",", "")
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+            return value
+        for fmt in ("%b %d %Y", "%B %d %Y"):
+            try:
+                return datetime.strptime(value, fmt).date().isoformat()
+            except ValueError:
+                continue
+    return None
+
+
+def _iter_job_postings(payload: object):
+    if isinstance(payload, dict):
+        yield payload
+        for value in payload.values():
+            if isinstance(value, (dict, list)):
+                yield from _iter_job_postings(value)
+    elif isinstance(payload, list):
+        for item in payload:
+            yield from _iter_job_postings(item)
+
+
+def _extract_relative_age_text(text: str) -> str | None:
+    for pattern in (
+        r"Posted\s+\d+\+?\s+months?\s+ago",
+        r"Posted\s+\d+\+?\s+weeks?\s+ago",
+        r"Posted\s+\d+\+?\s+days?\s+ago",
+    ):
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            return match.group(0).strip()
     return None
 
 
@@ -366,13 +492,22 @@ def _split_location(location: str | None) -> tuple[str | None, str | None]:
     return city, region
 
 
-def _build_notes(text: str, duration_months: int | None) -> str | None:
+def _build_notes(text: str, duration_months: int | None, duration_text: str | None = None) -> str | None:
     notes = []
+    if duration_text:
+        notes.append(duration_text)
     if duration_months:
         notes.append(f"{duration_months}-month placement")
     if "cyber" in text.lower() or "quantum" in text.lower():
         notes.append("Security-related role")
     return "; ".join(notes) if notes else None
+
+
+def _extract_bae_location(text: str) -> str | None:
+    for candidate in ("Portsmouth", "Bristol", "Barrow", "Warton", "Samlesbury", "Farnborough", "Glasgow"):
+        if candidate.lower() in text.lower():
+            return _expand_uk_location(candidate)
+    return None
 
 
 def _get_source_label(page_url: str) -> str:

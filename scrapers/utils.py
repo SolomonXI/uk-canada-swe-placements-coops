@@ -76,6 +76,8 @@ def upsert_listing(listing: dict[str, Any]) -> None:
         if existing.get("id") == listing_id:
             merged = {**existing, **listing}
             merged.setdefault("posted_date", existing.get("posted_date"))
+            merged.setdefault("posted_age_text", existing.get("posted_age_text"))
+            merged.setdefault("duration_text", existing.get("duration_text"))
             merged["last_seen_date"] = listing.get("last_seen_date", _utc_today())
             listings[index] = merged
             found = True

@@ -19,7 +19,8 @@ STARTING_URLS = [
     "https://jobs.lever.co/kepler",
     "https://jobs.lever.co/kabam/ad42a9d4-838d-443e-be94-e18b9097851e",
     "https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb",
-    "https://jobs.lever.co/magnetforensics?commitment=Co-op",
+    "https://jobs.lever.co/acceldata",
+    "https://jobs.lever.co/achievers",
     "https://jobs.pointnine.com/companies/clio/jobs/61425836-software-developer-co-op",
 ]
 
@@ -28,6 +29,7 @@ CITY_REGION_MAP = {
     "vancouver": ("Vancouver", "British Columbia"),
     "burnaby": ("Burnaby", "British Columbia"),
     "calgary": ("Calgary", "Alberta"),
+    "kitchener": ("Kitchener", "Ontario"),
     "waterloo": ("Waterloo", "Ontario"),
     "ottawa": ("Ottawa", "Ontario"),
     "halifax": ("Halifax", "Nova Scotia"),
@@ -104,7 +106,9 @@ def _parse_lever_board_posting(posting, page_url: str) -> dict | None:
     company = _company_from_lever_page(page_url)
     application_url = title_tag["href"] if title_tag and title_tag.has_attr("href") else page_url
     duration_months = _extract_duration_months(text)
+    duration_text = _extract_duration_text(text)
     city, region = _split_canadian_location(location)
+    posted_date, posted_age_text = _extract_posted_metadata(None, text)
 
     return {
         "id": generate_listing_id(company, title or "Co-op", application_url),
@@ -115,17 +119,19 @@ def _parse_lever_board_posting(posting, page_url: str) -> dict | None:
         "category": "SWE",
         "ai_focus": ai_focus,
         "duration_months": duration_months,
+        "duration_text": duration_text,
         "country": "Canada",
         "city": city,
         "region": region,
         "locations": [location] if location else [],
         "application_url": application_url,
         "source": _get_source_label(page_url),
-        "posted_date": None,
+        "posted_date": posted_date,
+        "posted_age_text": posted_age_text,
         "last_seen_date": _utc_today(),
         "open": True,
         "sponsorship": "Unknown",
-        "notes": _build_notes(text, duration_months),
+        "notes": _build_notes(text, duration_months, duration_text),
     }
 
 
@@ -143,7 +149,9 @@ def _parse_lever_job_page(soup: BeautifulSoup, page_url: str) -> dict | None:
     location = _location_from_text_or_url(text, page_url)
     city, region = _split_canadian_location(location)
     duration_months = _extract_duration_months(text)
+    duration_text = _extract_duration_text(text)
     application_url = _find_apply_url(soup) or page_url
+    posted_date, posted_age_text = _extract_posted_metadata(soup, text)
 
     return {
         "id": generate_listing_id(company, title or "Co-op", application_url),
@@ -154,17 +162,19 @@ def _parse_lever_job_page(soup: BeautifulSoup, page_url: str) -> dict | None:
         "category": "SWE",
         "ai_focus": ai_focus,
         "duration_months": duration_months,
+        "duration_text": duration_text,
         "country": "Canada",
         "city": city,
         "region": region,
         "locations": [location] if location else [],
         "application_url": application_url,
         "source": _get_source_label(page_url),
-        "posted_date": _extract_posted_date(text),
+        "posted_date": posted_date,
+        "posted_age_text": posted_age_text,
         "last_seen_date": _utc_today(),
         "open": not _looks_closed(text),
         "sponsorship": "Unknown",
-        "notes": _build_notes(text, duration_months),
+        "notes": _build_notes(text, duration_months, duration_text),
     }
 
 
@@ -182,6 +192,8 @@ def _parse_getro_job(soup: BeautifulSoup, page_url: str) -> dict | None:
     location = _location_from_getro_page(soup, text)
     city, region = _split_canadian_location(location)
     duration_months = _extract_duration_months(text)
+    duration_text = _extract_duration_text(text)
+    posted_date, posted_age_text = _extract_posted_metadata(soup, text)
 
     return {
         "id": generate_listing_id(company, title or "Co-op", page_url),
@@ -192,17 +204,19 @@ def _parse_getro_job(soup: BeautifulSoup, page_url: str) -> dict | None:
         "category": "SWE",
         "ai_focus": ai_focus,
         "duration_months": duration_months,
+        "duration_text": duration_text,
         "country": "Canada",
         "city": city,
         "region": region,
         "locations": [location] if location else [],
         "application_url": _find_apply_url(soup) or page_url,
         "source": _get_source_label(page_url),
-        "posted_date": _extract_posted_date(text),
+        "posted_date": posted_date,
+        "posted_age_text": posted_age_text,
         "last_seen_date": _utc_today(),
         "open": not _looks_closed(text),
         "sponsorship": "Unknown",
-        "notes": _build_notes(text, duration_months),
+        "notes": _build_notes(text, duration_months, duration_text),
     }
 
 
@@ -220,6 +234,8 @@ def _parse_td_job(soup: BeautifulSoup, page_url: str) -> dict | None:
     location = _location_from_text_or_url(text, page_url) or "Toronto, Ontario, Canada"
     city, region = _split_canadian_location(location)
     duration_months = _extract_duration_months(text)
+    duration_text = _extract_duration_text(text)
+    posted_date, posted_age_text = _extract_posted_metadata(soup, text)
     application_url = _find_apply_url(soup) or page_url
 
     return {
@@ -231,17 +247,19 @@ def _parse_td_job(soup: BeautifulSoup, page_url: str) -> dict | None:
         "category": "SWE",
         "ai_focus": ai_focus,
         "duration_months": duration_months,
+        "duration_text": duration_text,
         "country": "Canada",
         "city": city,
         "region": region,
         "locations": [location] if location else [],
         "application_url": application_url,
         "source": _get_source_label(page_url),
-        "posted_date": _extract_posted_date(text),
+        "posted_date": posted_date,
+        "posted_age_text": posted_age_text,
         "last_seen_date": _utc_today(),
         "open": not _looks_closed(text),
         "sponsorship": "Unknown",
-        "notes": _build_notes(text, duration_months),
+        "notes": _build_notes(text, duration_months, duration_text),
     }
 
 
@@ -319,6 +337,8 @@ def _company_from_lever_page(page_url: str) -> str:
     host = urlparse(page_url).netloc.lower()
     if "achievers" in host:
         return "Achievers"
+    if "acceldata" in host:
+        return "Acceldata"
     if "kabam" in host:
         return "Kabam"
     if "waabi" in host:
@@ -364,6 +384,8 @@ def _location_from_text_or_url(text: str, page_url: str) -> str | None:
     host = urlparse(page_url).netloc.lower()
     if "tdbank.jobs" in host or "achievers" in host or "pointnine" in host:
         return "Toronto, Ontario, Canada"
+    if "acceldata" in host:
+        return "Kitchener, Ontario, Canada"
     if "kabam" in host:
         return "Vancouver, British Columbia, Canada"
     if "waabi" in host:
@@ -404,6 +426,8 @@ def _expand_canadian_location(value: str) -> str:
         return "Burnaby, British Columbia, Canada"
     if "calgary" in lowered:
         return "Calgary, Alberta, Canada"
+    if "kitchener" in lowered:
+        return "Kitchener, Ontario, Canada"
     if "waterloo" in lowered:
         return "Waterloo, Ontario, Canada"
     if "ottawa" in lowered:
@@ -470,16 +494,88 @@ def _extract_duration_months(text: str) -> int | None:
     return None
 
 
-def _extract_posted_date(text: str) -> str | None:
-    m = re.search(r"posted on ([a-z]{3,9} \d{1,2},? \d{4})", text, re.IGNORECASE)
-    if not m:
-        return None
-    cleaned = m.group(1).replace(",", "")
-    for fmt in ("%b %d %Y", "%B %d %Y"):
-        try:
-            return datetime.strptime(cleaned, fmt).date().isoformat()
-        except ValueError:
+def _extract_duration_text(text: str) -> str | None:
+    patterns = (
+        r"\(\d{1,2}\s*[-–]\s*\d{1,2}\s*(?:month|months)\)",
+        r"\(\d{1,2}\+\s*(?:month|months)\)",
+        r"\d{1,2}\s*[-–]\s*\d{1,2}\s*(?:month|months)",
+        r"\d{1,2}\+\s*(?:month|months)",
+        r"\d{1,2}\s*(?:month|months)",
+    )
+    for pattern in patterns:
+        for m in re.finditer(pattern, text, re.IGNORECASE):
+            prefix = text[max(0, m.start() - 12):m.start()].lower()
+            if "posted" in prefix:
+                continue
+            return m.group(0).strip("()")
+    if "year long internship" in text.lower():
+        m = re.search(r"year long internship[^.\n]*", text, re.IGNORECASE)
+        if m:
+            value = m.group(0).split("Applications", 1)[0]
+            return value.strip()
+    return None
+
+
+def _extract_posted_metadata(soup: BeautifulSoup | None, text: str) -> tuple[str | None, str | None]:
+    posted_date = _extract_posted_date(soup, text)
+    if posted_date:
+        return posted_date, None
+    relative = _extract_relative_age_text(text)
+    return None, relative
+
+
+def _extract_posted_date(soup: BeautifulSoup | None, text: str) -> str | None:
+    if soup:
+        for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
+            payload = script.string or script.get_text(" ", strip=True)
+            if not payload:
+                continue
+            try:
+                data = json.loads(payload)
+            except json.JSONDecodeError:
+                continue
+            for item in _iter_job_postings(data):
+                date_value = item.get("datePosted")
+                if isinstance(date_value, str) and date_value:
+                    return date_value[:10]
+    for pattern in (
+        r"datePosted\W*[:=]\W*\"?(\d{4}-\d{2}-\d{2})",
+        r"posted on ([a-z]{3,9} \d{1,2},? \d{4})",
+    ):
+        m = re.search(pattern, text, re.IGNORECASE)
+        if not m:
             continue
+        value = m.group(1).replace(",", "")
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+            return value
+        for fmt in ("%b %d %Y", "%B %d %Y"):
+            try:
+                return datetime.strptime(value, fmt).date().isoformat()
+            except ValueError:
+                continue
+    return None
+
+
+def _iter_job_postings(payload: object):
+    if isinstance(payload, dict):
+        yield payload
+        for value in payload.values():
+            if isinstance(value, (dict, list)):
+                yield from _iter_job_postings(value)
+    elif isinstance(payload, list):
+        for item in payload:
+            yield from _iter_job_postings(item)
+
+
+def _extract_relative_age_text(text: str) -> str | None:
+    for pattern in (
+        r"Posted\s+\d+\+?\s+months?\s+ago",
+        r"Posted\s+\d+\+?\s+weeks?\s+ago",
+        r"Posted\s+\d+\+?\s+days?\s+ago",
+    ):
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            return m.group(0).strip()
     return None
 
 
@@ -500,8 +596,10 @@ def _short_role(role: str) -> str:
     )
 
 
-def _build_notes(text: str, duration_months: int | None) -> str | None:
+def _build_notes(text: str, duration_months: int | None, duration_text: str | None = None) -> str | None:
     notes = []
+    if duration_text:
+        notes.append(duration_text)
     if duration_months:
         notes.append(f"{duration_months}-month co-op")
     if "ai" in text.lower() or "machine learning" in text.lower():
@@ -517,6 +615,10 @@ def _get_source_label(page_url: str) -> str:
         return "PointNine"
     if "tdbank.jobs" in host:
         return "TDBank"
+    if "acceldata" in host:
+        return "Acceldata"
+    if "achievers" in host:
+        return "Achievers"
     return "JobBoard"
 
 
