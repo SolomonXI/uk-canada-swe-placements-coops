@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -76,9 +76,10 @@ def upsert_listing(listing: dict[str, Any]) -> None:
         save_listings(data)
         return
 
+    incoming_key = listing_key(listing)
     found = False
     for index, existing in enumerate(listings):
-        if existing.get("id") == listing_id:
+        if existing.get("id") == listing_id or listing_key(existing) == incoming_key:
             merged = {**existing, **listing}
             merged.setdefault("posted_date", existing.get("posted_date"))
             merged.setdefault("posted_age_text", existing.get("posted_age_text"))
@@ -107,6 +108,24 @@ def remove_listings(predicate) -> int:
     return removed
 
 
+def listing_key(listing: dict[str, Any]) -> str:
+    """Return a stable dedupe key for a listing."""
+
+    company = _normalize_key_text(str(listing.get("company", "")))
+    role = _normalize_key_text(str(listing.get("role", "")))
+    country = _normalize_key_text(str(listing.get("country", "")))
+    city = _normalize_key_text(str(listing.get("city", "")))
+    region = _normalize_key_text(str(listing.get("region", "")))
+    listing_type = _normalize_key_text(str(listing.get("type", "")))
+    return "|".join([company, role, country, city, region, listing_type])
+
+
+def _normalize_key_text(value: str) -> str:
+    value = value.lower().strip()
+    value = re.sub(r"\s+", " ", value)
+    return value
+
+
 def cleanup_listings() -> int:
     """Remove placeholder, expired, and clearly non-SWE rows from the dataset."""
 
@@ -118,16 +137,6 @@ def cleanup_listings() -> int:
             return True
         if company.startswith("Example "):
             return True
-        posted_date = listing.get("posted_date")
-        if posted_date:
-            try:
-                posted_value = datetime.fromisoformat(str(posted_date))
-                if posted_value.tzinfo is None:
-                    posted_value = posted_value.replace(tzinfo=timezone.utc)
-                if datetime.now(timezone.utc) - posted_value > timedelta(days=365):
-                    return True
-            except ValueError:
-                pass
         if company == "Acceldata" and not any(term in title_blob for term in ("software", "developer", "embedded", "platform", "backend", "frontend", "full stack", "research")):
             return True
         return False

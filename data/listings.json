@@ -26,7 +26,7 @@
       "duration_text": null
     },
     {
-      "id": "kabam-software-engineer-gameplay-co-op-7ecda2cb2a",
+      "id": "kabam-software-engineer-gameplay-co-op-7d20c80eb3",
       "company": "Kabam",
       "role": "Software Engineer (Gameplay) Co-op",
       "short_role": "SWE (Gameplay) Co-op",
@@ -40,7 +40,7 @@
       "locations": [
         "Vancouver, British Columbia, Canada"
       ],
-      "application_url": "https://jobs.lever.co/kabam/ad42a9d4-838d-443e-be94-e18b9097851e/apply",
+      "application_url": "https://jobs.lever.co/kabam/ad42a9d4-838d-443e-be94-e18b9097851e",
       "source": "Lever",
       "posted_date": "2026-06-24",
       "last_seen_date": "2026-07-12",
@@ -51,7 +51,7 @@
       "posted_age_text": null
     },
     {
-      "id": "waabi-research-internship-co-op-e8a391de71",
+      "id": "waabi-research-internship-co-op-0b2cb6868a",
       "company": "Waabi",
       "role": "Research Internship/Co-op",
       "short_role": "Research Internship/Co-op",
@@ -65,7 +65,7 @@
       "locations": [
         "Toronto, Ontario, Canada"
       ],
-      "application_url": "https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb/apply",
+      "application_url": "https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb",
       "source": "Lever",
       "posted_date": "2025-12-18",
       "last_seen_date": "2026-07-12",
@@ -99,6 +99,129 @@
       "notes": "4-8 months; 8-month co-op",
       "duration_text": "4-8 months",
       "posted_age_text": null
+    },
+    {
+      "id": "magnet-forensics-software-developer-co-op-fall-2026-8eefe1656f",
+      "company": "Magnet Forensics",
+      "role": "Software Developer Co-op (Fall 2026)",
+      "short_role": "SWE Co-op (Fall 2026)",
+      "type": "coop",
+      "category": "SWE",
+      "ai_focus": false,
+      "duration_months": null,
+      "duration_text": null,
+      "country": "Canada",
+      "city": "Halifax",
+      "region": "Nova Scotia",
+      "locations": [
+        "Halifax, Nova Scotia, Canada"
+      ],
+      "application_url": "https://jobs.lever.co/magnetforensics/d393ab82-448a-4dc2-87d0-a00981a55785",
+      "source": "Lever",
+      "posted_date": "2026-04-16",
+      "posted_age_text": null,
+      "last_seen_date": "2026-07-12",
+      "open": true,
+      "sponsorship": "Unknown",
+      "notes": null
+    },
+    {
+      "id": "magnet-forensics-software-developer-co-op-fall-2026-7f4943a221",
+      "company": "Magnet Forensics",
+      "role": "Software Developer Co-op (Fall 2026)",
+      "short_role": "SWE Co-op (Fall 2026)",
+      "type": "coop",
+      "category": "SWE",
+      "ai_focus": false,
+      "duration_months": null,
+      "duration_text": null,
+      "country": "Canada",
+      "city": "Waterloo",
+      "region": "Ontario",
+      "locations": [
+        "Waterloo, Ontario, Canada"
+      ],
+      "application_url": "https://jobs.lever.co/magnetforensics/b9fdce72-4c58-46bb-b7e2-b4bdc90390e5",
+      "source": "Lever",
+      "posted_date": "2026-04-16",
+      "posted_age_text": null,
+      "last_seen_date": "2026-07-12",
+      "open": true,
+      "sponsorship": "Unknown",
+      "notes": null
+    },
+    {
+      "id": "magnet-forensics-software-developer-engineer-in-test-co-op-fall-2026-9ebeda92a7",
+      "company": "Magnet Forensics",
+      "role": "Software Developer Engineer in Test Co-op (Fall 2026)",
+      "short_role": "SWE Engineer in Test Co-op (Fall 2026)",
+      "type": "coop",
+      "category": "SWE",
+      "ai_focus": false,
+      "duration_months": null,
+      "duration_text": null,
+      "country": "Canada",
+      "city": "Waterloo",
+      "region": "Ontario",
+      "locations": [
+        "Waterloo, Ontario, Canada"
+      ],
+      "application_url": "https://jobs.lever.co/magnetforensics/f125c8e7-052d-430d-b857-ceba1037f809",
+      "source": "Lever",
+      "posted_date": "2026-04-16",
+      "posted_age_text": null,
+      "last_seen_date": "2026-07-12",
+      "open": true,
+      "sponsorship": "Unknown",
+      "notes": null
+    },
+    {
+      "id": "acceldata-software-engineering-co-op-3a98fe868a",
+      "company": "Acceldata",
+      "role": "Software Engineering Co-op",
+      "short_role": "SWE Co-op",
+      "type": "coop",
+      "category": "SWE",
+      "ai_focus": false,
+      "duration_months": null,
+      "duration_text": null,
+      "country": "Canada",
+      "city": "Kitchener",
+      "region": "Ontario",
+      "locations": [
+        "Kitchener, Ontario, Canada"
+      ],
+      "application_url": "https://jobs.lever.co/acceldata/3b6d3dfe-5e49-41c9-98a5-f732fa63fdf4",
+      "source": "Lever",
+      "posted_date": "2024-01-22",
+      "posted_age_text": null,
+      "last_seen_date": "2026-07-12",
+      "open": true,
+      "sponsorship": "Unknown",
+      "notes": null
+    },
+    {
+      "id": "lucy-group-software-engineer-intern-c0a8a505b9",
+      "company": "Lucy Group",
+      "role": "Software Engineer - Intern",
+      "short_role": "SWE - Intern",
+      "type": "industrial_placement",
+      "category": "SWE",
+      "ai_focus": false,
+      "duration_months": null,
+      "country": "UK",
+      "city": null,
+      "region": null,
+      "locations": [],
+      "application_url": "https://careers.lucygroup.com/en/job/26057",
+      "source": "JobBoard",
+      "posted_date": null,
+      "posted_age_text": null,
+      "last_seen_date": "2026-07-12",
+      "open": true,
+      "sponsorship": "Unknown",
+      "duration_text": null,
+      "notes": null
     }
   ]
 }

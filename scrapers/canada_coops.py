@@ -19,6 +19,7 @@ STARTING_URLS = [
     "https://jobs.lever.co/kepler",
     "https://jobs.lever.co/kabam/ad42a9d4-838d-443e-be94-e18b9097851e",
     "https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb",
+    "https://jobs.lever.co/magnetforensics?commitment=Co-op",
     "https://jobs.lever.co/acceldata",
     "https://jobs.lever.co/achievers",
     "https://jobs.pointnine.com/companies/clio/jobs/61425836-software-developer-co-op",
@@ -104,7 +105,7 @@ def _parse_lever_board_posting(posting, page_url: str) -> dict | None:
 
     location = _location_from_text_or_url(text, page_url)
     company = _company_from_lever_page(page_url)
-    application_url = title_tag["href"] if title_tag and title_tag.has_attr("href") else page_url
+    application_url = _canonical_lever_url(title_tag["href"] if title_tag and title_tag.has_attr("href") else page_url)
     duration_months = _extract_duration_months(text)
     duration_text = _extract_duration_text(text)
     city, region = _split_canadian_location(location)
@@ -154,7 +155,7 @@ def _parse_lever_job_page(soup: BeautifulSoup, page_url: str) -> dict | None:
     city, region = _split_canadian_location(location)
     duration_months = _extract_duration_months(text)
     duration_text = _extract_duration_text(text)
-    application_url = _find_apply_url(soup) or page_url
+    application_url = _canonical_lever_url(_find_apply_url(soup) or page_url)
     if not _looks_like_swe_coop(title, text):
         return None
     posted_meta = _fetch_lever_job_metadata(application_url) if "lever.co" in application_url else {}
@@ -355,12 +356,16 @@ def _company_from_lever_page(page_url: str) -> str:
         return "Kabam"
     if "waabi" in host:
         return "Waabi"
+    if "magnetforensics" in host:
+        return "Magnet Forensics"
     if "pointnine" in host:
         return "Clio"
     if "tdbank" in host:
         return "TD"
     slug = urlparse(page_url).path.strip("/").split("/")[0]
     if slug:
+        if slug == "magnetforensics":
+            return "Magnet Forensics"
         return slug.replace("-", " ").title()
     return host.split(".")[0].title()
 
@@ -398,6 +403,8 @@ def _location_from_text_or_url(text: str, page_url: str) -> str | None:
         return "Vancouver, British Columbia, Canada"
     if "waabi" in host:
         return "Toronto, Ontario, Canada"
+    if "magnetforensics" in host:
+        return "Waterloo, Ontario, Canada"
     return None
 
 
@@ -520,6 +527,10 @@ def _extract_duration_text(text: str) -> str | None:
             value = m.group(0).split("Applications", 1)[0]
             return value.strip()
     return None
+
+
+def _canonical_lever_url(url: str) -> str:
+    return re.sub(r"/apply/?$", "", url)
 
 
 def _extract_posted_metadata(soup: BeautifulSoup | None, text: str) -> tuple[str | None, str | None]:

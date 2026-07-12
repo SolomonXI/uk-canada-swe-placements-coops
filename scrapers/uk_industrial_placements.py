@@ -18,6 +18,7 @@ STARTING_URLS = [
     "https://konecranes.careers/job/placement-software-engineer-in-leicester-england-united-kingdom-jid-2162",
     "https://jobs.accel.com/companies/pismo/jobs/61729613-software-engineer-12-months-placement-student",
     "https://careers.crane.vc/companies/pqshield/jobs/60817731-software-engineering-internship-placement-year-2026",
+    "https://careers.lucygroup.com/en/job/26057",
     "https://careers.baesystems.com/locations/uk/internships/industrial-placements",
 ]
 
@@ -51,6 +52,8 @@ def _parse_uk_listing(soup: BeautifulSoup, page_url: str) -> dict | None:
         return _parse_konecranes(soup, page_url)
     if "jobs.accel.com" in host or "careers.crane.vc" in host:
         return _parse_getro_style_job(soup, page_url)
+    if "careers.lucygroup.com" in host:
+        return _parse_generic_single_job(soup, page_url)
     if "careers.baesystems.com" in host:
         return _parse_bae_systems(soup, page_url)
     return _parse_generic_single_job(soup, page_url)
@@ -140,18 +143,20 @@ def _parse_getro_style_job(soup: BeautifulSoup, page_url: str) -> dict | None:
 
 
 def _parse_generic_single_job(soup: BeautifulSoup, page_url: str) -> dict | None:
-    title = _first_relevant_heading(soup) or _title_text(soup) or ""
+    title = _first_relevant_heading(soup) or _meta_content(soup, "og:title") or _title_text(soup) or ""
     text = _normalized_text(soup)
-    category, ai_focus = infer_category_and_ai_focus(title, text)
-    if category is None or not _looks_like_placement(text):
+    combined = f"{title} {text}"
+    category, ai_focus = infer_category_and_ai_focus(title, combined)
+    if category is None or not _looks_like_placement(combined):
         return None
 
-    company = _company_from_title(_meta_content(soup, "og:title") or title) or _meta_content(soup, "og:site_name") or "Unknown Company"
+    site_name = _meta_content(soup, "og:site_name") or ""
+    company = _company_from_title(_meta_content(soup, "og:title") or title) or site_name.replace(" Careers", "").strip() or "Unknown Company"
     location = _extract_location_from_body(text)
     city, region = _split_location(location)
-    duration_months = _extract_duration_months(text)
-    duration_text = _extract_duration_text(text)
-    posted_date, posted_age_text = _extract_posted_metadata(soup, text)
+    duration_months = _extract_duration_months(combined)
+    duration_text = _extract_duration_text(combined)
+    posted_date, posted_age_text = _extract_posted_metadata(soup, combined)
 
     return {
         "id": generate_listing_id(company, title or "Placement", page_url),
@@ -174,7 +179,7 @@ def _parse_generic_single_job(soup: BeautifulSoup, page_url: str) -> dict | None
         "open": not _looks_closed(text),
         "sponsorship": "Unknown",
         "duration_text": duration_text,
-        "notes": _build_notes(text, duration_months, duration_text),
+        "notes": _build_notes(combined, duration_months, duration_text),
     }
 
 
@@ -226,6 +231,11 @@ def _looks_like_placement(text: str) -> bool:
         "placement year",
         "placement student",
         "placement software engineer",
+        "software engineer intern",
+        "software engineering intern",
+        "software intern",
+        "internship",
+        "intern ",
         "12 month",
         "12-month",
         "12 months",
