@@ -30,9 +30,6 @@ The dataset is designed to refresh automatically via GitHub Actions.
 | Waabi | Research Internship/Co-op | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb/apply) | 7mo |
 | Clio | SWE, Co-op | Toronto, Ontario, Canada | 8 months | Yes | [Apply](https://clio.wd3.myworkdayjobs.com/ClioCareerSite/job/Vancouver/Software-Developer--Co-op_REQ-1577/apply) | 8mo |
 | Kepler | Embedded SWE Intern (September 2026) (4-8 months) | Toronto, Ontario, Canada | 4-8 months | No | [Apply](https://jobs.lever.co/kepler/afe34c63-ab6d-42a6-8571-dab052ee9c41) | Unknown |
-| Magnet Forensics | SWE Co-op (Fall 2026) | Halifax, Nova Scotia, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/d393ab82-448a-4dc2-87d0-a00981a55785) | Unknown |
-| Magnet Forensics | SWE Co-op (Fall 2026) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/b9fdce72-4c58-46bb-b7e2-b4bdc90390e5) | Unknown |
-| Magnet Forensics | SWE Engineer in Test Co-op (Fall 2026) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/f125c8e7-052d-430d-b857-ceba1037f809) | Unknown |
 | Acceldata | SWE Co-op | Kitchener, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/acceldata/3b6d3dfe-5e49-41c9-98a5-f732fa63fdf4) | Unknown |
 | Acceldata | Field Engineering Co-Op | Kitchener, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/acceldata/d69a1a62-284c-47d1-b74f-ea02dffad32f) | Unknown |
 | Acceldata | Sales Engineering Co-Op | Kitchener, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/acceldata/ffd01330-b32f-4868-9390-3af135335ab0) | Unknown |

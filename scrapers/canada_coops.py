@@ -343,16 +343,12 @@ def _company_from_lever_page(page_url: str) -> str:
         return "Kabam"
     if "waabi" in host:
         return "Waabi"
-    if "magnetforensics" in host:
-        return "Magnet Forensics"
     if "pointnine" in host:
         return "Clio"
     if "tdbank" in host:
         return "TD"
     slug = urlparse(page_url).path.strip("/").split("/")[0]
     if slug:
-        if slug == "magnetforensics":
-            return "Magnet Forensics"
         return slug.replace("-", " ").title()
     return host.split(".")[0].title()
 
@@ -390,8 +386,6 @@ def _location_from_text_or_url(text: str, page_url: str) -> str | None:
         return "Vancouver, British Columbia, Canada"
     if "waabi" in host:
         return "Toronto, Ontario, Canada"
-    if "magnetforensics" in host:
-        return "Waterloo, Ontario, Canada"
     return None
 
 
