@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -71,6 +71,11 @@ def upsert_listing(listing: dict[str, Any]) -> None:
     if not listing_id:
         raise ValueError("listing must include an id")
 
+    if listing.get("open") is False:
+        listings[:] = [existing for existing in listings if existing.get("id") != listing_id]
+        save_listings(data)
+        return
+
     found = False
     for index, existing in enumerate(listings):
         if existing.get("id") == listing_id:
@@ -87,6 +92,47 @@ def upsert_listing(listing: dict[str, Any]) -> None:
         listings.append(listing)
 
     save_listings(data)
+
+
+def remove_listings(predicate) -> int:
+    """Remove listings matching a predicate and return the count removed."""
+
+    data = load_listings()
+    listings = data.setdefault("listings", [])
+    before = len(listings)
+    listings[:] = [listing for listing in listings if not predicate(listing)]
+    removed = before - len(listings)
+    if removed:
+        save_listings(data)
+    return removed
+
+
+def cleanup_listings() -> int:
+    """Remove placeholder, expired, and clearly non-SWE rows from the dataset."""
+
+    def should_remove(listing: dict[str, Any]) -> bool:
+        company = str(listing.get("company", ""))
+        role = str(listing.get("role", ""))
+        title_blob = f"{company} {role}".lower()
+        if listing.get("open") is False:
+            return True
+        if company.startswith("Example "):
+            return True
+        posted_date = listing.get("posted_date")
+        if posted_date:
+            try:
+                posted_value = datetime.fromisoformat(str(posted_date))
+                if posted_value.tzinfo is None:
+                    posted_value = posted_value.replace(tzinfo=timezone.utc)
+                if datetime.now(timezone.utc) - posted_value > timedelta(days=365):
+                    return True
+            except ValueError:
+                pass
+        if company == "Acceldata" and not any(term in title_blob for term in ("software", "developer", "embedded", "platform", "backend", "frontend", "full stack", "research")):
+            return True
+        return False
+
+    return remove_listings(should_remove)
 
 
 def infer_category_and_ai_focus(

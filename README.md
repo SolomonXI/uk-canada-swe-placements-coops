@@ -16,23 +16,15 @@ The dataset is designed to refresh automatically via GitHub Actions.
 
 | Company | Role | Location | Duration | AI Focus | Application | Age |
 |--------|------|----------|----------|----------|-------------|-----|
-| Example Tech UK | Software Eng Placement | London, England, UK | 12 months | No | [Apply](https://example.com/uk-placement) | Unknown |
 | Konecranes | Placement SWE | Leicester, England, UK | 12 months | Yes | [Apply](https://konecranes.careers/job/placement-software-engineer-in-leicester-england-united-kingdom-jid-2162) | Unknown |
-| Pismo | SWE - 12 Months Placement | Belfast, UK | 12 Month | Yes | [Apply](https://jobs.accel.com/companies/pismo/jobs/61729613-software-engineer-12-months-placement-student) | 8mo |
-| PQShield | Internship - SWE (Placement Year 2026) | Oxford, Oxfordshire, UK | year long internship beginning in July 2026 | No | [Apply](https://careers.crane.vc/companies/pqshield/jobs/60817731-software-engineering-internship-placement-year-2026) | Posted 6+ months ago |
 
 ## 🇨🇦 Canada Software Developer Co-ops
 
 | Company | Role | Location | Duration | AI Focus | Application | Age |
 |--------|------|----------|----------|----------|-------------|-----|
-| Example Cloud Canada | SWE Co-op | Toronto, Ontario, Canada | 8 months | Yes | [Apply](https://example.com/ca-coop) | Unknown |
 | Kabam | SWE (Gameplay) Co-op | Vancouver, British Columbia, Canada | 4 month | Yes | [Apply](https://jobs.lever.co/kabam/ad42a9d4-838d-443e-be94-e18b9097851e/apply) | 18d |
 | Waabi | Research Internship/Co-op | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb/apply) | 7mo |
-| Clio | SWE, Co-op | Toronto, Ontario, Canada | 8 months | Yes | [Apply](https://clio.wd3.myworkdayjobs.com/ClioCareerSite/job/Vancouver/Software-Developer--Co-op_REQ-1577/apply) | 8mo |
-| Kepler | Embedded SWE Intern (September 2026) (4-8 months) | Toronto, Ontario, Canada | 4-8 months | No | [Apply](https://jobs.lever.co/kepler/afe34c63-ab6d-42a6-8571-dab052ee9c41) | Unknown |
-| Acceldata | SWE Co-op | Kitchener, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/acceldata/3b6d3dfe-5e49-41c9-98a5-f732fa63fdf4) | Unknown |
-| Acceldata | Field Engineering Co-Op | Kitchener, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/acceldata/d69a1a62-284c-47d1-b74f-ea02dffad32f) | Unknown |
-| Acceldata | Sales Engineering Co-Op | Kitchener, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/acceldata/ffd01330-b32f-4868-9390-3af135335ab0) | Unknown |
+| Kepler | Embedded SWE Intern (September 2026) (4-8 months) | Toronto, Ontario, Canada | 4-8 months | No | [Apply](https://jobs.lever.co/kepler/afe34c63-ab6d-42a6-8571-dab052ee9c41) | 5mo |
 
 ## Quick start
 

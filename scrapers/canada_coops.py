@@ -108,7 +108,11 @@ def _parse_lever_board_posting(posting, page_url: str) -> dict | None:
     duration_months = _extract_duration_months(text)
     duration_text = _extract_duration_text(text)
     city, region = _split_canadian_location(location)
+    if not _looks_like_swe_coop(title, text):
+        return None
+    posted_meta = _fetch_lever_job_metadata(application_url) if "lever.co" in application_url else {}
     posted_date, posted_age_text = _extract_posted_metadata(None, text)
+    posted_date = posted_meta.get("posted_date") or posted_date
 
     return {
         "id": generate_listing_id(company, title or "Co-op", application_url),
@@ -151,7 +155,11 @@ def _parse_lever_job_page(soup: BeautifulSoup, page_url: str) -> dict | None:
     duration_months = _extract_duration_months(text)
     duration_text = _extract_duration_text(text)
     application_url = _find_apply_url(soup) or page_url
+    if not _looks_like_swe_coop(title, text):
+        return None
+    posted_meta = _fetch_lever_job_metadata(application_url) if "lever.co" in application_url else {}
     posted_date, posted_age_text = _extract_posted_metadata(soup, text)
+    posted_date = posted_meta.get("posted_date") or posted_date
 
     return {
         "id": generate_listing_id(company, title or "Co-op", application_url),
@@ -194,6 +202,8 @@ def _parse_getro_job(soup: BeautifulSoup, page_url: str) -> dict | None:
     duration_months = _extract_duration_months(text)
     duration_text = _extract_duration_text(text)
     posted_date, posted_age_text = _extract_posted_metadata(soup, text)
+    if not _looks_like_swe_coop(title, text):
+        return None
 
     return {
         "id": generate_listing_id(company, title or "Co-op", page_url),
@@ -237,6 +247,8 @@ def _parse_td_job(soup: BeautifulSoup, page_url: str) -> dict | None:
     duration_text = _extract_duration_text(text)
     posted_date, posted_age_text = _extract_posted_metadata(soup, text)
     application_url = _find_apply_url(soup) or page_url
+    if not _looks_like_swe_coop(title, text):
+        return None
 
     return {
         "id": generate_listing_id(company, title or "Co-op", application_url),
@@ -637,6 +649,53 @@ def _looks_closed(text: str) -> bool:
 def _looks_like_coop(title: str, text: str) -> bool:
     lowered = f"{title} {text}".lower()
     return any(term in lowered for term in ("co-op", "coop", "co op", "cooperative education", "intern/co-op", "internship/coop"))
+
+
+def _looks_like_swe_coop(title: str, text: str) -> bool:
+    lowered = f"{title} {text}".lower()
+    if any(term in lowered for term in ("field engineering", "sales engineering", "solutions engineer", "customer success", "support engineering")):
+        return False
+    return any(
+        term in lowered
+        for term in (
+            "software",
+            "developer",
+            "software engineering",
+            "software engineer",
+            "embedded",
+            "platform",
+            "backend",
+            "frontend",
+            "full stack",
+            "machine learning",
+            "ai",
+            "research",
+        )
+    )
+
+
+def _fetch_lever_job_metadata(url: str) -> dict[str, str]:
+    try:
+        response = requests.get(url, timeout=20, headers={"User-Agent": "Mozilla/5.0"})
+        response.raise_for_status()
+    except requests.RequestException:
+        return {}
+
+    soup = BeautifulSoup(response.text, "html.parser")
+    for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
+        payload = script.string or script.get_text(" ", strip=True)
+        if not payload:
+            continue
+        try:
+            data = json.loads(payload)
+        except json.JSONDecodeError:
+            continue
+        for item in _iter_job_postings(data):
+            posted_date = item.get("datePosted") if isinstance(item, dict) else None
+            if not isinstance(posted_date, str) or not posted_date:
+                continue
+            return {"posted_date": posted_date[:10]}
+    return {}
 
 
 def run() -> None:

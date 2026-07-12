@@ -1,52 +1,6 @@
 {
   "listings": [
     {
-      "id": "uk-example-software-engineering-12-month-industrial-placement-example-com-uk-placement",
-      "company": "Example Tech UK",
-      "role": "Software Engineering 12 Month Industrial Placement",
-      "short_role": "Software Eng Placement",
-      "type": "industrial_placement",
-      "category": "SWE",
-      "ai_focus": false,
-      "duration_months": 12,
-      "country": "UK",
-      "city": "London",
-      "region": "England",
-      "locations": [
-        "London, England, UK"
-      ],
-      "application_url": "https://example.com/uk-placement",
-      "source": "CompanySite",
-      "posted_date": null,
-      "last_seen_date": "2026-07-12",
-      "open": true,
-      "sponsorship": "Unknown",
-      "notes": "Example 12-month industrial placement listing"
-    },
-    {
-      "id": "ca-example-software-engineer-co-op-example-com-ca-coop",
-      "company": "Example Cloud Canada",
-      "role": "Software Engineer Co-op",
-      "short_role": "SWE Co-op",
-      "type": "coop",
-      "category": "SWE",
-      "ai_focus": true,
-      "duration_months": 8,
-      "country": "Canada",
-      "city": "Toronto",
-      "region": "Ontario",
-      "locations": [
-        "Toronto, Ontario, Canada"
-      ],
-      "application_url": "https://example.com/ca-coop",
-      "source": "JobBoard",
-      "posted_date": null,
-      "last_seen_date": "2026-07-12",
-      "open": true,
-      "sponsorship": "Unknown",
-      "notes": "Example AI-focused SWE co-op listing"
-    },
-    {
       "id": "konecranes-placement-software-engineer-dae2bb95a9",
       "company": "Konecranes",
       "role": "Placement Software Engineer",
@@ -70,56 +24,6 @@
       "notes": "12-month placement",
       "posted_age_text": null,
       "duration_text": null
-    },
-    {
-      "id": "pismo-software-engineer-12-months-placement-student-61f7349e66",
-      "company": "Pismo",
-      "role": "Software Engineer - 12 Months Placement Student",
-      "short_role": "SWE - 12 Months Placement",
-      "type": "industrial_placement",
-      "category": "SWE",
-      "ai_focus": true,
-      "duration_months": 12,
-      "country": "UK",
-      "city": "Belfast",
-      "region": null,
-      "locations": [
-        "Belfast, UK"
-      ],
-      "application_url": "https://jobs.accel.com/companies/pismo/jobs/61729613-software-engineer-12-months-placement-student",
-      "source": "Accel",
-      "posted_date": "2025-11-06",
-      "last_seen_date": "2026-07-12",
-      "open": false,
-      "sponsorship": "Unknown",
-      "notes": "12 Month; 12-month placement",
-      "posted_age_text": null,
-      "duration_text": "12 Month"
-    },
-    {
-      "id": "pqshield-internship-software-engineer-placement-year-2026-1d2492412e",
-      "company": "PQShield",
-      "role": "Internship - Software Engineer (Placement Year 2026)",
-      "short_role": "Internship - SWE (Placement Year 2026)",
-      "type": "industrial_placement",
-      "category": "SWE",
-      "ai_focus": false,
-      "duration_months": 12,
-      "country": "UK",
-      "city": "Oxford",
-      "region": "Oxfordshire",
-      "locations": [
-        "Oxford, Oxfordshire, England, United Kingdom"
-      ],
-      "application_url": "https://careers.crane.vc/companies/pqshield/jobs/60817731-software-engineering-internship-placement-year-2026",
-      "source": "CraneVC",
-      "posted_date": null,
-      "last_seen_date": "2026-07-12",
-      "open": false,
-      "sponsorship": "Unknown",
-      "notes": "year long internship beginning in July 2026; 12-month placement; Security-related role",
-      "posted_age_text": "Posted 6+ months ago",
-      "duration_text": "year long internship beginning in July 2026"
     },
     {
       "id": "kabam-software-engineer-gameplay-co-op-7ecda2cb2a",
@@ -172,31 +76,6 @@
       "posted_age_text": null
     },
     {
-      "id": "clio-software-developer-co-op-e15b271b56",
-      "company": "Clio",
-      "role": "Software Developer, Co-op",
-      "short_role": "SWE, Co-op",
-      "type": "coop",
-      "category": "SWE",
-      "ai_focus": true,
-      "duration_months": 8,
-      "country": "Canada",
-      "city": "Toronto",
-      "region": "Ontario",
-      "locations": [
-        "Toronto, Ontario, Canada"
-      ],
-      "application_url": "https://clio.wd3.myworkdayjobs.com/ClioCareerSite/job/Vancouver/Software-Developer--Co-op_REQ-1577/apply",
-      "source": "PointNine",
-      "posted_date": "2025-10-31",
-      "last_seen_date": "2026-07-12",
-      "open": false,
-      "sponsorship": "Unknown",
-      "notes": "8-month co-op; AI-related role",
-      "duration_text": null,
-      "posted_age_text": null
-    },
-    {
       "id": "kepler-embedded-software-engineering-intern-september-2026-4-8-months-d172058225",
       "company": "Kepler",
       "role": "Embedded Software Engineering Intern (September 2026) (4-8 months)",
@@ -213,88 +92,13 @@
       ],
       "application_url": "https://jobs.lever.co/kepler/afe34c63-ab6d-42a6-8571-dab052ee9c41",
       "source": "Lever",
-      "posted_date": null,
+      "posted_date": "2026-02-02",
       "last_seen_date": "2026-07-12",
       "open": true,
       "sponsorship": "Unknown",
       "notes": "4-8 months; 8-month co-op",
       "duration_text": "4-8 months",
       "posted_age_text": null
-    },
-    {
-      "id": "acceldata-software-engineering-co-op-3a98fe868a",
-      "company": "Acceldata",
-      "role": "Software Engineering Co-op",
-      "short_role": "SWE Co-op",
-      "type": "coop",
-      "category": "SWE",
-      "ai_focus": false,
-      "duration_months": null,
-      "duration_text": null,
-      "country": "Canada",
-      "city": "Kitchener",
-      "region": "Ontario",
-      "locations": [
-        "Kitchener, Ontario, Canada"
-      ],
-      "application_url": "https://jobs.lever.co/acceldata/3b6d3dfe-5e49-41c9-98a5-f732fa63fdf4",
-      "source": "Lever",
-      "posted_date": null,
-      "posted_age_text": null,
-      "last_seen_date": "2026-07-12",
-      "open": true,
-      "sponsorship": "Unknown",
-      "notes": null
-    },
-    {
-      "id": "acceldata-field-engineering-co-op-29c34e9e98",
-      "company": "Acceldata",
-      "role": "Field Engineering Co-Op",
-      "short_role": "Field Engineering Co-Op",
-      "type": "coop",
-      "category": "SWE",
-      "ai_focus": false,
-      "duration_months": null,
-      "duration_text": null,
-      "country": "Canada",
-      "city": "Kitchener",
-      "region": "Ontario",
-      "locations": [
-        "Kitchener, Ontario, Canada"
-      ],
-      "application_url": "https://jobs.lever.co/acceldata/d69a1a62-284c-47d1-b74f-ea02dffad32f",
-      "source": "Lever",
-      "posted_date": null,
-      "posted_age_text": null,
-      "last_seen_date": "2026-07-12",
-      "open": true,
-      "sponsorship": "Unknown",
-      "notes": null
-    },
-    {
-      "id": "acceldata-sales-engineering-co-op-ba6bdcef17",
-      "company": "Acceldata",
-      "role": "Sales Engineering Co-Op",
-      "short_role": "Sales Engineering Co-Op",
-      "type": "coop",
-      "category": "SWE",
-      "ai_focus": false,
-      "duration_months": null,
-      "duration_text": null,
-      "country": "Canada",
-      "city": "Kitchener",
-      "region": "Ontario",
-      "locations": [
-        "Kitchener, Ontario, Canada"
-      ],
-      "application_url": "https://jobs.lever.co/acceldata/ffd01330-b32f-4868-9390-3af135335ab0",
-      "source": "Lever",
-      "posted_date": null,
-      "posted_age_text": null,
-      "last_seen_date": "2026-07-12",
-      "open": true,
-      "sponsorship": "Unknown",
-      "notes": null
     }
   ]
 }
