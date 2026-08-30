@@ -5,6 +5,12 @@ on:
     - cron: "0 6 * * *"
   workflow_dispatch:
 
+# The workflow updates committed listing data and README content.  GitHub tokens
+# are read-only by default for many repositories, so explicitly request the
+# minimum write scope needed for the final push.
+permissions:
+  contents: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -29,11 +35,13 @@ jobs:
         run: python scripts/generate_readme.py
 
       - name: Commit and push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/listings.json README.md
-          git diff --quiet && echo "No changes to commit" || git commit -m "Update listings"
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Update listings"
           git push
