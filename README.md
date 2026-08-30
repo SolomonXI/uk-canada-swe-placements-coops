@@ -23,13 +23,15 @@ The dataset is designed to refresh automatically via GitHub Actions.
 
 | Company | Role | Location | Duration | AI Focus | Application | Age |
 |--------|------|----------|----------|----------|-------------|-----|
-| Kabam | SWE (Gameplay) Co-op | Vancouver, British Columbia, Canada | 4 month | Yes | [Apply](https://jobs.lever.co/kabam/ad42a9d4-838d-443e-be94-e18b9097851e) | 18d |
-| Waabi | Research Internship/Co-op | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb) | 7mo |
-| Kepler | Embedded SWE Intern (September 2026) (4-8 months) | Toronto, Ontario, Canada | 4-8 months | No | [Apply](https://jobs.lever.co/kepler/afe34c63-ab6d-42a6-8571-dab052ee9c41) | 5mo |
-| Magnet Forensics | SWE Co-op (Fall 2026) | Halifax, Nova Scotia, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/d393ab82-448a-4dc2-87d0-a00981a55785) | 3mo |
-| Magnet Forensics | SWE Co-op (Fall 2026) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/b9fdce72-4c58-46bb-b7e2-b4bdc90390e5) | 3mo |
-| Magnet Forensics | SWE Engineer in Test Co-op (Fall 2026) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/f125c8e7-052d-430d-b857-ceba1037f809) | 3mo |
-| Acceldata | SWE Co-op | Kitchener, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/acceldata/3b6d3dfe-5e49-41c9-98a5-f732fa63fdf4) | 2y |
+| Kabam | SWE (Gameplay) Co-op | Vancouver, British Columbia, Canada | 4 month | Yes | [Apply](https://jobs.lever.co/kabam/ad42a9d4-838d-443e-be94-e18b9097851e) | 2mo |
+| Waabi | Research Internship/Co-op | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb) | 8mo |
+| Kepler | Embedded SWE Intern (September 2026) (4-8 months) | Toronto, Ontario, Canada | 4-8 months | No | [Apply](https://jobs.lever.co/kepler/afe34c63-ab6d-42a6-8571-dab052ee9c41) | 7mo |
+| Magnet Forensics | SWE Co-op (Fall 2026) | Halifax, Nova Scotia, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/d393ab82-448a-4dc2-87d0-a00981a55785) | 5mo |
+| Magnet Forensics | SWE Co-op (Fall 2026) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/b9fdce72-4c58-46bb-b7e2-b4bdc90390e5) | 5mo |
+| Magnet Forensics | SWE Engineer in Test Co-op (Fall 2026) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/f125c8e7-052d-430d-b857-ceba1037f809) | 5mo |
+| Acceldata | SWE Co-op | Kitchener, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/acceldata/3b6d3dfe-5e49-41c9-98a5-f732fa63fdf4) | 3y |
+| Kepler | Embedded SWE Intern (January 2027) (4 months) | Toronto, Ontario, Canada | 4 month | No | [Apply](https://jobs.lever.co/kepler/2ad02ce3-1d56-4aee-9f1d-5199c780c0c1) | 11d |
+| Magnet Forensics | Magnet Forensics jobs | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/magnetforensics?commitment=Co-op) | Unknown |
 
 ## Quick start
 
