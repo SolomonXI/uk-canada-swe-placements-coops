@@ -22,6 +22,8 @@ STARTING_URLS = [
     "https://careers.baesystems.com/locations/uk/internships/industrial-placements",
 ]
 
+TARGET_DURATION_MONTHS = 12
+
 
 class UKIndustrialPlacementsScraper(Scraper):
     source_name = "UKIndustrialPlacements"
@@ -39,8 +41,8 @@ class UKIndustrialPlacementsScraper(Scraper):
 
             soup = BeautifulSoup(response.text, "html.parser")
             listing = _parse_uk_listing(soup, url)
-            if not listing:
-                print(f"[UK] No matching SWE placement found at {url}")
+            if not listing or listing.get("duration_months") != TARGET_DURATION_MONTHS:
+                print(f"[UK] No matching {TARGET_DURATION_MONTHS}-month SWE placement found at {url}")
                 continue
             upsert_listing(listing)
             print(f"[UK] Upserted {listing['id']}")

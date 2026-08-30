@@ -127,7 +127,7 @@ def _normalize_key_text(value: str) -> str:
 
 
 def cleanup_listings() -> int:
-    """Remove placeholder, expired, and clearly non-SWE rows from the dataset."""
+    """Remove placeholder, expired, irrelevant, and off-scope rows."""
 
     def should_remove(listing: dict[str, Any]) -> bool:
         company = str(listing.get("company", ""))
@@ -136,6 +136,15 @@ def cleanup_listings() -> int:
         if listing.get("open") is False:
             return True
         if company.startswith("Example "):
+            return True
+        # UK industrial placements are deliberately limited to full placement
+        # years. This prevents four-month internships and unverified durations
+        # from resurfacing when a source page changes.
+        if (
+            listing.get("country") == "UK"
+            and listing.get("type") == "industrial_placement"
+            and listing.get("duration_months") != 12
+        ):
             return True
         if company == "Acceldata" and not any(term in title_blob for term in ("software", "developer", "embedded", "platform", "backend", "frontend", "full stack", "research")):
             return True

@@ -4,7 +4,7 @@ Thanks for helping improve the UK & Canada SWE placements/co-ops dataset.
 
 ## What belongs here
 
-- UK software engineering industrial placements of roughly 10–12 months.
+- UK software engineering industrial placements that are explicitly 12 months.
 - Canadian software engineering / software developer co-op roles.
 - Roles should be clearly relevant to SWE.
 
@@ -59,6 +59,6 @@ Each listing should include:
 ## Quality rules
 
 - Only add software engineering roles.
-- Only add UK industrial placements that are clearly placement-year roles.
+- Only add UK industrial placements that are clearly 12-month placement-year roles.
 - Only add Canadian co-op roles.
 - Keep entries normalized and avoid duplicates.
