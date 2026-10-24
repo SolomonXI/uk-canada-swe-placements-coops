@@ -33,7 +33,7 @@ The dataset is designed to refresh automatically via GitHub Actions.
 | Magnet Forensics | Magnet Forensics jobs | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/magnetforensics?commitment=Co-op) | Unknown |
 | Achievers | SWE Co-op - Winter 2027 | Toronto, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/achievers/e0700fce-b33b-435a-ab90-84bbd677e181) | 1mo |
 | Magnet Forensics | SWE Co-op (Winter 2027) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/6eba87dc-f110-47b2-8015-31311ca60f52) | 1mo |
-| Kepler | SWE Intern (January 2027) | Toronto, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/kepler/5514238a-8301-49f1-8116-26d38ea0900c) | 7d |
+| Kepler | SWE Intern (January 2027) | Toronto, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/kepler/5514238a-8301-49f1-8116-26d38ea0900c) | 8d |
 
 ## Quick start
 
