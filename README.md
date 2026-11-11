@@ -32,8 +32,8 @@ The dataset is designed to refresh automatically via GitHub Actions.
 | Kepler | Embedded SWE Intern (January 2027) (4 months) | Toronto, Ontario, Canada | 4 month | No | [Apply](https://jobs.lever.co/kepler/2ad02ce3-1d56-4aee-9f1d-5199c780c0c1) | 3mo |
 | Magnet Forensics | Magnet Forensics jobs | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/magnetforensics?commitment=Co-op) | Unknown |
 | Achievers | SWE Co-op - Winter 2027 | Toronto, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/achievers/e0700fce-b33b-435a-ab90-84bbd677e181) | 2mo |
-| Magnet Forensics | SWE Co-op (Winter 2027) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/6eba87dc-f110-47b2-8015-31311ca60f52) | 2mo |
-| Kepler | SWE Intern (January 2027) | Toronto, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/kepler/5514238a-8301-49f1-8116-26d38ea0900c) | 25d |
+| Magnet Forensics | SWE Co-op (Winter 2027) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/6eba87dc-f110-47b2-8015-31311ca60f52) | Unknown |
+| Kepler | SWE Intern (January 2027) | Toronto, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/kepler/5514238a-8301-49f1-8116-26d38ea0900c) | 26d |
 
 ## Quick start
 
