@@ -23,7 +23,7 @@ The dataset is designed to refresh automatically via GitHub Actions.
 | Company | Role | Location | Duration | AI Focus | Application | Age |
 |--------|------|----------|----------|----------|-------------|-----|
 | Kabam | SWE (Gameplay) Co-op | Vancouver, British Columbia, Canada | 4 month | Yes | [Apply](https://jobs.lever.co/kabam/ad42a9d4-838d-443e-be94-e18b9097851e) | 5mo |
-| Waabi | Research Internship/Co-op | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb) | 11mo |
+| Waabi | Research Internship/Co-op | Toronto, Ontario, Canada | Unknown | Yes | [Apply](https://jobs.lever.co/waabi/0fd4e30b-9bd1-4b53-9043-6088457363cb) | 12mo |
 | Kepler | Embedded SWE Intern (September 2026) (4-8 months) | Toronto, Ontario, Canada | 4-8 months | No | [Apply](https://jobs.lever.co/kepler/afe34c63-ab6d-42a6-8571-dab052ee9c41) | 10mo |
 | Magnet Forensics | SWE Co-op (Fall 2026) | Halifax, Nova Scotia, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/d393ab82-448a-4dc2-87d0-a00981a55785) | 8mo |
 | Magnet Forensics | SWE Co-op (Fall 2026) | Waterloo, Ontario, Canada | Unknown | No | [Apply](https://jobs.lever.co/magnetforensics/b9fdce72-4c58-46bb-b7e2-b4bdc90390e5) | 8mo |
